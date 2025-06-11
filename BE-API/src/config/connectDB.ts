@@ -1,21 +1,16 @@
-import { Sequelize } from 'sequelize-typescript';
+import mongoose from "mongoose";
+import dotenv from 'dotenv';
+dotenv.config();
 
 
-export const sequelize = new Sequelize({
-    dialect: 'mysql',
-    host: 'localhost',
-    username: 'root',
-    password: '',
-    database: 'test_db',
-    models: [],
-});
-let connectDB = async () => {
+const url = process.env.MONGO_URL as string
+
+export const connect = async (): Promise<void> => {
     try {
-        await sequelize.authenticate();
-        console.log('Connection has been established successfully.');
+        await mongoose.connect(url);
+        console.log("Connect db success !")
     } catch (error) {
-        console.error('Unable to connect to the database:', error);
+        console.log(`Connect db fail ${error}! `)
+
     }
 }
-
-export default connectDB; 

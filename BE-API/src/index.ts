@@ -1,10 +1,13 @@
-import { Request, Response } from 'express';
+import { Request, Response, Express } from 'express';
 import express from 'express';
 import routes from './routes';
+import { connect } from './config/connectDB';
 import dotenv from 'dotenv';
 dotenv.config();
-const app = express();
+// kết nối db
+connect();
 
+const app: Express = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(routes)
